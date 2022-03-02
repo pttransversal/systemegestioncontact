@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta charset="ISO-8859-1">
+<title>Système de gestion des contacts</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+</head>
+<body class="p-3 mb-2 bg-light text-dark" >
+<header>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a  class="nav-link active">Organisez Vos Contacts</a>
+        <a class="nav-link active" aria-current="page" th:href="@{/}">Liste des contacts</a>
+        <a class="nav-link" th:href="@{/showNewContactForm}">Ajouter un contact</a>
+        <a class="nav-link" th:href="@{/cherchercontact}">Chercher un contact</a>
+       <!--  <a class="nav-link disabled">Disabled</a> -->
+        <!-- <a class="nav navbar-nav navbar-right" th:href="@{/login?logout}">Logout</a> -->
+      </div>
+    </div>
+  </div>
+</nav>	
+ </header> 
+  <section layout:fragment="content">
+  
+  
+  <div class="container my-2">
+  
+	<h1>Liste des contacts</h1>
+	<!--  <a th:href = "@{/showNewContactForm}" class="btn btn-primary btn-sm mb-3" > Ajouter un contact </a> -->
+	
+		<table border="1" class = "table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>
+					<a  th:href="@{'/page/' + ${currentPage} + '?sortField=nom&sortDir=' + ${reverseSortDir}}">
+							Nom du Contact </a>
+					 </th>
+					<th>
+					<a  th:href="@{'/page/' + ${currentPage} + '?sortField=prenom&sortDir=' + ${reverseSortDir}}">
+							Prènom du Contact</a>
+					</th>
+					<th>Télèphone du Contact</th>
+					<th>
+					<a  th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+							Email Contact</a>
+					</th>
+					<th>
+					<a  th:href="@{'/page/' + ${currentPage} + '?sortField=lien&sortDir=' + ${reverseSortDir}}">
+							Lien du Contact</a>
+					</th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contact : ${listContacts}">
+					<td th:text="${contact.nom}"></td>
+					<td th:text="${contact.prenom}"></td>
+					<td th:text="${contact.telephone}"></td>
+					<td th:text="${contact.email}"></td>
+					<td th:text="${contact.lien}"></td>
+					<td>   <a th:href="@{/showFormForUpdate/{id}(id=${contact.id})}" class="btn btn-primary">Mettre à jour</a>
+					    <a th:href="@{/deleteContact/{id}(id=${contact.id})}" class="btn btn-danger">Supprimer</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if = "${totalPages > 1}">
+			<div class = "row col-sm-10">
+				<div class = "col-sm-2">
+					Total des lignes: [[${totalItems}]] 
+				</div>
+				<div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+					<!-- <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> -->
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+				</div>
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }">Suivant</a>
+					<span th:unless="${currentPage < totalPages}">Suivant</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }">Dernier</a>
+					<span th:unless="${currentPage < totalPages}">Dernier</span>
+   				 </div>
+			</div>
+		</div>
+		
+	</div>
+  
+  
+  
+  </section> 
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+ <footer>
+  <div class="navbar-fixed-bottom">
+   <small>@ Gestion des contacts</small>
+  </div> 
+ </footer>
+</body>
+</html>

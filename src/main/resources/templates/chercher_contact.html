@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+<meta charset="ISO-8859-1">
+<title>Système de gestion des contacts</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+</head>
+<body  class="p-3 mb-2 bg-light text-dark">
+<header>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a  class="nav-link active">Organisez Vos Contacts</a>
+        <a class="nav-link  active" aria-current="page" th:href="@{/}">Liste des contacts</a>
+        <a class="nav-link" th:href="@{/showNewContactForm}">Ajouter un contact</a>
+        <a class="nav-link" th:href="@{/cherchercontact}">Chercher un contact</a>
+       <!--  <a class="nav-link disabled">Disabled</a> -->
+        <!-- <a class="nav navbar-nav navbar-right" th:href="@{/login?logout}">Logout</a> -->
+      </div>
+    </div>
+  </div>
+</nav>	
+ </header> 
+ <br/><br/>
+ <section layout:fragment="content">
+  
+  <div class="container">
+  <div class="container my-2">
+  
+	<h4>Chercher un contact</h4>
+	<br/><br/>
+	<div class="container">
+	 <form th:action="@{cherchercontact}" method="get">
+	 <label>Recherche par lien de contact (amis, famille, collègue ou autre)</label>
+    <br/>
+  <div class="form-row">
+    <br/>
+   &nbsp; <label for="motcle"> Mot clé :</label>
+    &nbsp;
+    <div class="col">
+      <input id="motcle" type="text" name="motCle" th:value="${motCle}" class="form-control" placeholder="State"/>
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"> Chercher </button>
+    </div>
+  </div>
+</form>
+	</div>
+	<br/>
+	<table border="1" width="50%" class="table table-striped"> 
+	      <thead> 
+	         <tr> 
+	          <th>ID</th>
+	          <th>Nom</th>
+	          <th>Prènom</th> 
+	          <th>Télèphone</th>
+	          <th>Email</th> 
+	          <th>Lien</th>
+	         </tr> 
+	      </thead> 
+	      <tbody>
+	         <tr th:each="c:${contacts}">
+	           <td th:text="${c.id}"></td> 
+	           <td th:text="${c.nom}"></td>
+	           <td th:text="${c.prenom}"></td>
+	           <td th:text="${c.telephone}"></td> 
+	           <td th:text="${c.email}"></td>
+	           <td th:text="${c.lien}"></td>
+	         </tr>
+	      </tbody> 
+	 </table>
+
+	</div> 
+  </div>
+  </section> 
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+ <footer>
+  <div class="navbar-fixed-bottom">
+   <small>@ Gestion des contacts</small>
+  </div> 
+ </footer>
+ 
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta charset="ISO-8859-1">
+
+<title>Système de gestion des contacts</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body class="p-3 mb-2 bg-light text-dark" >
+ <header> 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a  class="nav-link active">Organisez Vos Contacts</a>
+        <a class="nav-link active" aria-current="page" th:href="@{/}">Liste des contacts</a>
+        <a class="nav-link" th:href="@{/showNewContactForm}">Ajouter un contact</a>
+        <a class="nav-link" th:href="@{/cherchercontact}">Chercher un contact</a>
+       <!--  <a class="nav-link disabled">Disabled</a> -->
+        <!-- <a class="nav navbar-nav navbar-right" th:href="@{/login?logout}">Logout</a> -->
+      </div>
+    </div>
+  </div>
+</nav>
+ </header> 
+  <section layout:fragment="content">
+  
+  
+  <div class="container">
+		<h1>Système de gestion des contacts</h1>
+		<hr>
+		<h2>Enregistrer un contact</h2>
+
+		<form action="#" th:action="@{/saveContact}" th:object="${contact}"
+			method="POST">
+			    <input type="text" th:field="*{nom}"
+				placeholder="Nom du Contact" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{prenom}"
+				placeholder="Prènom du Contact" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{telephone}"
+				placeholder="Télèphone du Contact" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{email}"
+				placeholder="Email du Contact" class="form-control mb-4 col-4">
+				
+				<input type="text" th:field="*{lien}"
+				placeholder="Lien du Contact(amis,famille,collègue ou autre)" class="form-control mb-4 col-4">
+				
+				<button type="submit" class="btn btn-info col-2"> Enregistrer </button>
+		</form>
+		
+		<hr>
+		<br/><br/><br/><br/>
+		<!--  <a th:href = "@{/}">Retour à la liste des Contacts </a> -->
+	</div>
+  
+  
+  
+  
+  </section> 
+  <br/><br/><br/>
+ <footer>
+  <div class="navbar-fixed-bottom">
+   <small>@ Gestion des contacts</small>
+  </div> 
+ </footer>
+
+
+</body>
+</html>
